@@ -38,7 +38,10 @@ const DailyQuote = () => {
   // Get a deterministic "random" quote based on the date
   useEffect(() => {
     const today = new Date();
-    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+    const startOfYear = new Date(today.getFullYear(), 0, 0);
+    const diff = today.getTime() - startOfYear.getTime();
+    // Convert difference in milliseconds to days
+    const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
     const quoteIndex = dayOfYear % quotes.length;
     setQuote(quotes[quoteIndex]);
   }, []);
