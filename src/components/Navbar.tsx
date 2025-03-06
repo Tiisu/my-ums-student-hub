@@ -1,103 +1,141 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import { cn } from "@/lib/utils";
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, User, LogIn } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { pathname } = useLocation();
+  const { user } = useAuth();
 
-  // Handle scroll event to change navbar appearance
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 10);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Prayer Times', href: '#prayer-times' },
-    { name: 'Executives', href: '#executives' },
-    { name: 'Articles', href: '#articles' },
-    { name: 'Contact', href: '#contact' },
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  const isActive = (path: string) => pathname === path;
+
+  // Define navigation items
+  const navItems = [
+    { name: 'Home', path: '/' },
+    { name: 'Prayer Times', path: '/prayer-times' },
+    { name: 'Quran', path: '/quran' },
+    { name: 'Articles', path: '/articles' },
+    { name: 'Contact', path: '/contact' },
   ];
 
   return (
-    <nav 
-      className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-300 py-4 px-6 md:px-10",
-        scrolled ? "bg-white/80 backdrop-blur-md shadow-sm" : "bg-transparent"
-      )}
+    <header 
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isScrolled ? 'py-2 bg-white/90 backdrop-blur-lg shadow-sm' : 'py-4 bg-transparent'
+      }`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Logo */}
-        <a 
-          href="#" 
-          className="flex items-center gap-2"
-        >
-          <span className="text-islamic-green font-serif text-2xl font-bold">GMSA UDS</span>
-        </a>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="nav-link"
-            >
-              {link.name}
-            </a>
-          ))}
-          <button className="px-5 py-2 bg-islamic-green text-white rounded-lg font-medium transition-all duration-300 hover:bg-islamic-darkGreen">
-            Sign In
-          </button>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden"
-          aria-label="Toggle menu"
-        >
-          {isOpen ? (
-            <X className="h-6 w-6 text-islamic-navy" />
-          ) : (
-            <Menu className="h-6 w-6 text-islamic-navy" />
-          )}
-        </button>
-      </div>
-
-      {/* Mobile Navigation */}
-      <div
-        className={cn(
-          "fixed inset-0 top-16 bg-white z-40 transition-transform duration-300 transform md:hidden",
-          isOpen ? "translate-x-0" : "translate-x-full"
-        )}
-      >
-        <div className="flex flex-col space-y-4 p-6">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-islamic-navy py-2 text-lg font-medium border-b border-gray-100"
-              onClick={() => setIsOpen(false)}
-            >
-              {link.name}
-            </a>
-          ))}
-          <button 
-            className="mt-4 px-5 py-3 bg-islamic-green text-white rounded-lg font-medium transition-all hover:bg-islamic-darkGreen"
-            onClick={() => setIsOpen(false)}
+      <div className="container mx-auto px-6">
+        <nav className="flex justify-between items-center">
+          {/* Logo */}
+          <Link to="/" className="flex items-center">
+            <span className="text-xl font-bold text-islamic-navy">GMSA <span className="text-islamic-green">UDS</span></span>
+          </Link>
+          
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
+                onClick={closeMobileMenu}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+          
+          {/* Auth buttons */}
+          <div className="hidden md:flex items-center space-x-4">
+            {user ? (
+              <Link to="/profile">
+                <Button variant="outline" className="border-islamic-blue text-islamic-blue">
+                  <User className="mr-2 h-4 w-4" />
+                  Profile
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/auth">
+                <Button className="bg-islamic-green text-white hover:bg-islamic-darkGreen">
+                  <LogIn className="mr-2 h-4 w-4" />
+                  Sign In
+                </Button>
+              </Link>
+            )}
+          </div>
+          
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden text-islamic-navy"
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
           >
-            Sign In
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
-        </div>
+        </nav>
+        
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-4 px-6 animate-fade-in">
+            <div className="flex flex-col space-y-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`text-islamic-navy py-2 ${
+                    isActive(item.path) ? 'font-semibold text-islamic-green' : ''
+                  }`}
+                  onClick={closeMobileMenu}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              
+              {user ? (
+                <Link
+                  to="/profile"
+                  className="flex items-center py-2 text-islamic-blue"
+                  onClick={closeMobileMenu}
+                >
+                  <User className="mr-2 h-4 w-4" />
+                  Profile
+                </Link>
+              ) : (
+                <Link
+                  to="/auth"
+                  className="flex items-center py-2 text-islamic-green"
+                  onClick={closeMobileMenu}
+                >
+                  <LogIn className="mr-2 h-4 w-4" />
+                  Sign In
+                </Link>
+              )}
+            </div>
+          </div>
+        )}
       </div>
-    </nav>
+    </header>
   );
 };
 
