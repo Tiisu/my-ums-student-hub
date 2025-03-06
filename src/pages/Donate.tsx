@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Radio, RadioGroup } from '@/components/ui/radio-group';
+import { RadioGroup } from '@/components/ui/radio-group';
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { InfoIcon, CreditCard, PhoneCall, AlertCircle } from 'lucide-react';
@@ -137,14 +137,14 @@ const Donate = () => {
                   className="flex flex-col space-y-2"
                 >
                   <div className="flex items-center space-x-2">
-                    <Radio value="momo" id="momo" />
+                    <RadioGroup value="momo" id="momo" />
                     <Label htmlFor="momo" className="flex items-center">
                       <PhoneCall className="mr-2 h-4 w-4" />
                       Mobile Money
                     </Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Radio value="card" id="card" />
+                    <RadioGroup value="card" id="card" />
                     <Label htmlFor="card" className="flex items-center">
                       <CreditCard className="mr-2 h-4 w-4" />
                       Credit/Debit Card

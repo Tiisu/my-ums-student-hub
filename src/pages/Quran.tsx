@@ -85,7 +85,7 @@ const Quran = () => {
   return (
     <div className="py-10 px-6">
       <div className="container mx-auto max-w-6xl">
-        <h1 className="text-3xl md:text-4xl font-bold font-serif text-islamic-navy mb-6">Quran</h1>
+        <h1 className="text-3xl text-center md:text-4xl font-bold font-serif text-islamic-navy mb-6 mt-10">Quran</h1>
         
         <Tabs defaultValue="recitations" className="w-full">
           <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">

@@ -127,9 +127,9 @@ const PrayerTimes = ({ standalone = false }: PrayerTimesProps) => {
     return (
       <div className="py-10 px-6">
         <div className="container mx-auto">
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex justify-center items-center gap-3 mb-8 mt-10">
             <Clock className="h-8 w-8 text-islamic-green" />
-            <h1 className="text-3xl md:text-4xl font-bold font-serif text-islamic-navy">Prayer Times</h1>
+            <h1 className="text-3xl text-center md:text-4xl font-bold font-serif text-islamic-navy">Prayer Times</h1>
           </div>
           <div className="glass-card p-8">
             {renderContent()}

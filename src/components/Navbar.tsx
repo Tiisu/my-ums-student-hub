@@ -36,7 +36,8 @@ const Navbar = () => {
     { name: 'Prayer Times', path: '/prayer-times' },
     { name: 'Quran', path: '/quran' },
     { name: 'Articles', path: '/articles' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'News', path: '/news' },
+   
   ];
 
   return (
@@ -76,10 +77,10 @@ const Navbar = () => {
                 </Button>
               </Link>
             ) : (
-              <Link to="/auth">
+              <Link to="/donate">
                 <Button className="bg-islamic-green text-white hover:bg-islamic-darkGreen">
-                  <LogIn className="mr-2 h-4 w-4" />
-                  Sign In
+                  {/* <LogIn className="mr-2 h-4 w-4" /> */}
+                  Donate Now
                 </Button>
               </Link>
             )}
@@ -123,12 +124,12 @@ const Navbar = () => {
                 </Link>
               ) : (
                 <Link
-                  to="/auth"
+                  to="/donate"
                   className="flex items-center py-2 text-islamic-green"
                   onClick={closeMobileMenu}
                 >
-                  <LogIn className="mr-2 h-4 w-4" />
-                  Sign In
+                  {/* <LogIn className="mr-2 h-4 w-4" /> */}
+                  Donate
                 </Link>
               )}
             </div>

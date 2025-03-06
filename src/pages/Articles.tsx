@@ -73,7 +73,7 @@ const Articles = () => {
   return (
     <div className="py-10 px-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="flex items-center gap-3 mb-8">
+        <div className="flex justify-center mt-10 items-center gap-3 mb-8">
           <BookOpen className="h-8 w-8 text-islamic-green" />
           <h1 className="text-3xl md:text-4xl font-bold font-serif text-islamic-navy">Islamic Articles</h1>
         </div>

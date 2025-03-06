@@ -18,15 +18,15 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const SIDEBAR_LINKS = [
-  { name: 'Prayer Times', path: '/prayer-times', icon: Clock },
-  { name: 'Quran', path: '/quran', icon: BookText },
-  { name: 'Articles', path: '/articles', icon: BookOpen },
-  { name: 'News', path: '/news', icon: Calendar },
-  { name: 'Executives', path: '/executives', icon: Users },
-  { name: 'Donate', path: '/donate', icon: DollarSign },
-  { name: 'Message Imam', path: '/message-imam', icon: Mail },
-];
+// const SIDEBAR_LINKS = [
+//   { name: 'Prayer Times', path: '/prayer-times', icon: Clock },
+//   { name: 'Quran', path: '/quran', icon: BookText },
+//   { name: 'Articles', path: '/articles', icon: BookOpen },
+//   { name: 'News', path: '/news', icon: Calendar },
+//   { name: 'Executives', path: '/executives', icon: Users },
+//   { name: 'Donate', path: '/donate', icon: DollarSign },
+//   { name: 'Message Imam', path: '/message-imam', icon: Mail },
+// ];
 
 const AppLayout = () => {
   const { user, signOut } = useAuth();
@@ -64,10 +64,10 @@ const AppLayout = () => {
 
       <div className="flex flex-1">
         {/* Sidebar */}
-        <aside 
+        {/* <aside 
           className={cn(
             "fixed inset-y-0 left-0 z-40 lg:relative w-64 bg-white shadow-lg transform transition-transform lg:translate-x-0 pt-16",
-            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+            isSidebarOpen ? "translate-x-0" : "translate-x-0" // This was -translate-x-full
           )}
         >
           {user && (
@@ -75,10 +75,10 @@ const AppLayout = () => {
               <div className="font-semibold text-islamic-navy">{user.user_metadata.username || 'User'}</div>
               <div className="text-sm text-islamic-charcoal/70">{user.email}</div>
             </div>
-          )}
+          )} */}
 
-          <nav className="p-4">
-            <ul className="space-y-2">
+          {/* <nav className="p-4"> */}
+            {/* <ul className="space-y-2">
               {SIDEBAR_LINKS.map((link) => (
                 <li key={link.path}>
                   <button
@@ -105,8 +105,8 @@ const AppLayout = () => {
                 </button>
               </li>
             </ul>
-          </nav>
-        </aside>
+          </nav> */}
+        {/* </aside> */}
 
         {/* Main content */}
         <main className={cn(

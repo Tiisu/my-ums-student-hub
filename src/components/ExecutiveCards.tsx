@@ -13,9 +13,9 @@ const executives = [
   },
   {
     id: 2,
-    name: "Fatima Ibrahim",
+    name: "Mahama Ibrahim",
     position: "Vice President",
-    imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=774&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=774&auto=format&fit=crop",
     email: "fatima@gmsauds.org",
     phone: "+233 55 234 5678"
   },
@@ -29,9 +29,9 @@ const executives = [
   },
   {
     id: 4,
-    name: "Aisha Mohammed",
+    name: "Kofi Mohammed",
     position: "Treasurer",
-    imageUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=761&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=774&auto=format&fit=crop",
     email: "aisha@gmsauds.org",
     phone: "+233 55 456 7890"
   }
