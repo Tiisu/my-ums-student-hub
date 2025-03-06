@@ -136,6 +136,8 @@ export interface Reciter {
 
 export const RECITERS: Reciter[] = [
   { id: 1, name: "Mishari Rashid al-Afasy", language: "Arabic", baseUrl: "https://server8.mp3quran.net/afs/" },
+  { id: 10, name: "This is Matrood", language: "Arabic", baseUrl: "https://server8.mp3quran.net/mtrod/" },
+
   // { id: 2, name: "Abdul Rahman Al-Sudais", language: "Arabic", baseUrl: "https://server7.mp3quran.net/sudais/" },
   // { id: 3, name: "Saud Al-Shuraim", language: "Arabic", baseUrl: "https://server7.mp3quran.net/shur/" },
   // { id: 4, name: "Abu Bakr Al-Shatri", language: "Arabic", baseUrl: "https://server7.mp3quran.net/shatri/" },
