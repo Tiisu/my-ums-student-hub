@@ -142,7 +142,7 @@ export const RECITERS: Reciter[] = [
   // { id: 3, name: "Saud Al-Shuraim", language: "Arabic", baseUrl: "https://server7.mp3quran.net/shur/" },
   // { id: 4, name: "Abu Bakr Al-Shatri", language: "Arabic", baseUrl: "https://server7.mp3quran.net/shatri/" },
   { id: 5, name: "Mahmoud Khalil Al-Husary", language: "Arabic", baseUrl: "https://server13.mp3quran.net/husr/" },
-  // { id: 6, name: "Mohamed Siddiq El-Minshawi", language: "Arabic", baseUrl: "https://server8.mp3quran.net/minsh/" },
+  { id: 6, name: "Mohamed Siddiq El-Minshawi", language: "Arabic", baseUrl: "https://server8.mp3quran.net/minsh/" },
   // { id: 7, name: "Hani Ar-Rifai", language: "Arabic", baseUrl: "https://server11.mp3quran.net/hani/" },
   // { id: 8, name: "Sa`d Al-Ghamdi", language: "Arabic", baseUrl: "https://server11.mp3quran.net/gmd/" },
   { id: 9, name: "My Man Bukhatir", language: "Arabic", baseUrl: "https://server8.mp3quran.net/bu_khtr/" },
