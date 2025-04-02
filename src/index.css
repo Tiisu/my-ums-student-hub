@@ -1,5 +1,6 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -112,4 +113,10 @@
 
 .font-sans {
   font-family: 'Inter', sans-serif;
+}
+
+.font-arabic {
+  font-family: 'Scheherazade New', serif;
+  font-size: 1.5em;
+  font-feature-settings: "calt" 1, "liga" 1, "rclt" 1;
 }

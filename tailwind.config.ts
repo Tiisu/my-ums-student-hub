@@ -64,15 +64,18 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				islamic: {
-          green: '#10B981',
-          darkGreen: '#059669',
-          blue: '#1E40AF',
-          lightBlue: '#3B82F6',
-          gold: '#F59E0B',
-          cream: '#FFFBEB',
-          navy: '#0F172A',
-          charcoal: '#1E293B'
-        }
+					green: '#10B981',
+					darkGreen: '#059669',
+					blue: '#1E40AF',
+					lightBlue: '#3B82F6',
+					gold: '#F59E0B',
+					cream: '#FFFBEB',
+					navy: '#0F172A',
+					charcoal: '#1E293B'
+				}
+			},
+			fontFamily: {
+				arabic: ['Scheherazade New', 'serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -81,20 +84,12 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' }
 				},
 				'fade-in': {
 					'0%': { opacity: '0' },
@@ -133,5 +128,5 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [require("tailwindcss-animate")]
 } satisfies Config;

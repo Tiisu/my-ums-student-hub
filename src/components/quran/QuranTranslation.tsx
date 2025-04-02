@@ -15,7 +15,18 @@ interface QuranTranslationProps {
 const QuranTranslation = ({ currentSurah, verses, onSurahChange }: QuranTranslationProps) => {
   const [searchText, setSearchText] = useState('');
   const [favoriteVerses, setFavoriteVerses] = useState<number[]>([]);
+  const [activeVerse, setActiveVerse] = useState<number | null>(null);
   const { toast } = useToast();
+
+  if (verses.length === 0) {
+    return (
+      <div className="glass-card p-6 md:p-8">
+        <div className="flex justify-center items-center py-20">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-islamic-green"></div>
+        </div>
+      </div>
+    );
+  }
 
   const filteredVerses = verses.filter(verse => 
     verse.arabic.includes(searchText) || 
@@ -78,6 +89,14 @@ const QuranTranslation = ({ currentSurah, verses, onSurahChange }: QuranTranslat
     }
   };
 
+  // Add scroll into view for verses
+  const scrollToVerse = (verseId: number) => {
+    const element = document.getElementById(`verse-${verseId}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
   return (
     <div className="glass-card p-6 md:p-8">
       <div className="flex flex-col md:flex-row justify-between items-center mb-6">
@@ -119,47 +138,57 @@ const QuranTranslation = ({ currentSurah, verses, onSurahChange }: QuranTranslat
       </div>
       
       <div className="space-y-6">
-        {filteredVerses.length > 0 ? (
-          filteredVerses.map(verse => (
-            <div key={verse.id} className="border-b pb-4 last:border-0">
-              <div className="flex justify-between items-start mb-2">
+        {filteredVerses.map(verse => (
+          <div
+            key={verse.id}
+            className={`p-4 rounded-lg transition-colors ${
+              activeVerse === verse.id ? 'bg-islamic-green/5' : 'hover:bg-islamic-green/5'
+            }`}
+            onClick={() => setActiveVerse(verse.id)}
+          >
+            <div className="flex justify-between items-start mb-3">
+              <div className="flex items-center gap-2">
                 <div className="h-6 w-6 rounded-full bg-islamic-green/10 flex items-center justify-center text-islamic-green text-sm font-medium">
                   {verse.verseNumber}
                 </div>
-                <div className="flex gap-1">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => shareVerse(verse)}
-                    className="text-islamic-charcoal/50 hover:text-islamic-charcoal h-7 w-7 p-0"
-                  >
-                    <Share2 size={16} />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => toggleFavoriteVerse(verse.id)}
-                    className={`text-islamic-charcoal/50 hover:text-islamic-charcoal h-7 w-7 p-0 ${
-                      favoriteVerses.includes(verse.id) ? 'text-red-500' : ''
-                    }`}
-                  >
-                    <Heart size={16} fill={favoriteVerses.includes(verse.id) ? 'currentColor' : 'none'} />
-                  </Button>
-                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => scrollToVerse(verse.id)}
+                  className="text-islamic-charcoal/50 hover:text-islamic-charcoal h-7"
+                >
+                  <BookOpen size={16} />
+                </Button>
               </div>
-              <p className="text-xl text-right font-arabic leading-loose mb-2">
-                {verse.arabic}
-              </p>
-              <p className="text-islamic-charcoal/80">
-                {verse.english}
-              </p>
+              <div className="flex gap-1">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => shareVerse(verse)}
+                  className="text-islamic-charcoal/50 hover:text-islamic-charcoal h-7 w-7 p-0"
+                >
+                  <Share2 size={16} />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => toggleFavoriteVerse(verse.id)}
+                  className={`text-islamic-charcoal/50 hover:text-islamic-charcoal h-7 w-7 p-0 ${
+                    favoriteVerses.includes(verse.id) ? 'text-red-500' : ''
+                  }`}
+                >
+                  <Heart size={16} fill={favoriteVerses.includes(verse.id) ? 'currentColor' : 'none'} />
+                </Button>
+              </div>
             </div>
-          ))
-        ) : (
-          <div className="text-center py-8 text-islamic-charcoal/70">
-            No verses found matching your search.
+            <p className="font-arabic text-right leading-loose mb-4 text-2xl">
+              {verse.arabic}
+            </p>
+            <p className="text-islamic-charcoal/80 leading-relaxed">
+              {verse.english}
+            </p>
           </div>
-        )}
+        ))}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { Play, Pause, SkipForward, SkipBack, Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SurahInfo } from '@/data/quranData';
@@ -10,85 +10,57 @@ interface QuranAudioPlayerProps {
   audioUrl: string;
   onNextSurah: () => void;
   onPrevSurah: () => void;
+  isPlaying: boolean;
+  onPlayPause: () => void;
+  volume: number;
+  isMuted: boolean;
+  onVolumeChange: (volume: number) => void;
+  onMuteToggle: () => void;
 }
 
-const QuranAudioPlayer = ({ currentSurah, audioUrl, onNextSurah, onPrevSurah }: QuranAudioPlayerProps) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+const QuranAudioPlayer = forwardRef<HTMLAudioElement, QuranAudioPlayerProps>(({
+  currentSurah,
+  audioUrl,
+  onNextSurah,
+  onPrevSurah,
+  isPlaying,
+  onPlayPause,
+  volume,
+  isMuted,
+  onVolumeChange,
+  onMuteToggle
+}, ref) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(0.7);
-  const [isMuted, setIsMuted] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Update audio src when audioUrl changes
+  useImperativeHandle(ref, () => audioRef.current as HTMLAudioElement);
+
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.pause();
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
+
+  useEffect(() => {
+    if (audioRef.current) {
       audioRef.current.src = audioUrl;
       audioRef.current.load();
-      setIsPlaying(false);
-      setCurrentTime(0);
     }
   }, [audioUrl]);
 
-  // Handle play/pause
-  const handlePlayPause = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
-  // Handle time update
   const handleTimeUpdate = () => {
     if (audioRef.current) {
       setCurrentTime(audioRef.current.currentTime);
     }
   };
 
-  // Handle loaded metadata
   const handleLoadedMetadata = () => {
     if (audioRef.current) {
       setDuration(audioRef.current.duration);
     }
   };
 
-  // Handle volume change
-  const handleVolumeChange = (value: number[]) => {
-    const newVolume = value[0];
-    setVolume(newVolume);
-    
-    if (audioRef.current) {
-      audioRef.current.volume = newVolume;
-      setIsMuted(newVolume === 0);
-    }
-  };
-
-  // Handle mute toggle
-  const toggleMute = () => {
-    if (audioRef.current) {
-      if (isMuted) {
-        audioRef.current.volume = volume;
-        setIsMuted(false);
-      } else {
-        audioRef.current.volume = 0;
-        setIsMuted(true);
-      }
-    }
-  };
-
-  // Format time (seconds to mm:ss)
-  const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-  };
-
-  // Handle seek
   const handleSeek = (value: number[]) => {
     const seekTime = value[0];
     if (audioRef.current) {
@@ -97,62 +69,33 @@ const QuranAudioPlayer = ({ currentSurah, audioUrl, onNextSurah, onPrevSurah }: 
     }
   };
 
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
   return (
-    <div className="glass-card bg-islamic-navy/5 p-4 rounded-xl mb-8">
-      <div className="flex flex-col items-center">
-        <h3 className="text-xl font-bold text-islamic-navy">
-          {currentSurah.name} - {currentSurah.englishName}
-        </h3>
-        <div className="text-sm text-islamic-charcoal/70 mb-4">
-          {currentSurah.versesCount} verses • {currentSurah.revelationType}
-        </div>
-        
-        <audio 
-          ref={audioRef}
-          src={audioUrl}
-          onTimeUpdate={handleTimeUpdate}
-          onLoadedMetadata={handleLoadedMetadata}
-          onEnded={() => setIsPlaying(false)}
-          className="hidden"
-        />
-        
-        {/* Progress bar */}
-        <div className="w-full mb-2">
-          <div className="flex justify-between text-xs text-islamic-charcoal/70 mb-1">
-            <span>{formatTime(currentTime)}</span>
-            <span>{formatTime(duration)}</span>
+    <div className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-md border-t shadow-lg z-50 ">
+      <audio
+        ref={audioRef}
+        onTimeUpdate={handleTimeUpdate}
+        onLoadedMetadata={handleLoadedMetadata}
+        onEnded={onNextSurah}
+      />
+      <div className="container mx-auto max-w-6xl px-4 py-3">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          {/* Surah Info */}
+          <div className="flex-shrink-0 text-center md:text-left">
+            <h3 className="text-lg font-semibold text-islamic-navy">
+              {currentSurah.name} - {currentSurah.englishName}
+            </h3>
+            <p className="text-sm text-islamic-charcoal/70">
+              {currentSurah.versesCount} verses • {currentSurah.revelationType}
+            </p>
           </div>
-          <Slider
-            value={[currentTime]}
-            min={0}
-            max={duration || 1}
-            step={1}
-            onValueChange={handleSeek}
-            className="w-full"
-          />
-        </div>
-        
-        {/* Controls */}
-        <div className="flex items-center justify-between w-full mt-4">
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleMute}
-              className="rounded-full"
-            >
-              {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-            </Button>
-            <Slider
-              value={[isMuted ? 0 : volume]}
-              min={0}
-              max={1}
-              step={0.1}
-              onValueChange={handleVolumeChange}
-              className="w-20"
-            />
-          </div>
-          
+
+          {/* Main Controls */}
           <div className="flex items-center gap-4">
             <Button
               variant="outline"
@@ -165,7 +108,7 @@ const QuranAudioPlayer = ({ currentSurah, audioUrl, onNextSurah, onPrevSurah }: 
             <Button
               variant="default"
               size="icon"
-              onClick={handlePlayPause}
+              onClick={onPlayPause}
               className="bg-islamic-green hover:bg-islamic-darkGreen rounded-full h-12 w-12"
             >
               {isPlaying ? <Pause size={24} /> : <Play size={24} />}
@@ -179,14 +122,45 @@ const QuranAudioPlayer = ({ currentSurah, audioUrl, onNextSurah, onPrevSurah }: 
               <SkipForward size={18} />
             </Button>
           </div>
-          
-          <div className="w-24">
-            {/* placeholder for symmetry */}
+
+          {/* Progress and Volume */}
+          <div className="flex-grow max-w-md flex items-center gap-4">
+            <span className="text-xs">{formatTime(currentTime)}</span>
+            <Slider
+              value={[currentTime]}
+              min={0}
+              max={duration || 1}
+              step={1}
+              onValueChange={handleSeek}
+              className="flex-grow"
+            />
+            <span className="text-xs">{formatTime(duration)}</span>
+            
+            <div className="flex items-center gap-2 ml-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onMuteToggle}
+                className="rounded-full"
+              >
+                {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+              </Button>
+              <Slider
+                value={[isMuted ? 0 : volume]}
+                min={0}
+                max={1}
+                step={0.1}
+                onValueChange={(value) => onVolumeChange(value[0])}
+                className="w-20"
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
+});
+
+QuranAudioPlayer.displayName = 'QuranAudioPlayer';
 
 export default QuranAudioPlayer;

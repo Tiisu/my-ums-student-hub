@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { QURAN_CHAPTERS, RECITERS } from "@/data/quranData";
+import { QURAN_CHAPTERS, RECITERS, Verse } from "@/data/quranData";
 import { toast } from "@/components/ui/use-toast";
 
 export interface SavedFavorite {
@@ -95,4 +95,37 @@ export function getAudioUrl(reciterId: number, surahId: number): string {
   
   // Fallback to Mishari Rashid al-Afasy if reciter not found
   return `https://server8.mp3quran.net/afs/${surahNumber}.mp3`;
+}
+
+// Fetch verses for a specific chapter/surah
+export async function getVersesByChapter(chapterId: number): Promise<Verse[]> {
+  try {
+    const response = await fetch(`https://api.alquran.cloud/v1/surah/${chapterId}/en.asad`);
+    const arabicResponse = await fetch(`https://api.alquran.cloud/v1/surah/${chapterId}`);
+    
+    const [translationData, arabicData] = await Promise.all([
+      response.json(),
+      arabicResponse.json()
+    ]);
+
+    if (!translationData.data || !arabicData.data) {
+      throw new Error('Failed to fetch verses');
+    }
+
+    // Combine Arabic and English translations
+    return translationData.data.ayahs.map((ayah: any, index: number) => ({
+      id: ayah.number,
+      verseNumber: ayah.numberInSurah,
+      arabic: arabicData.data.ayahs[index].text,
+      english: ayah.text
+    }));
+  } catch (error) {
+    console.error('Error fetching verses:', error);
+    toast({
+      title: "Error loading verses",
+      description: "There was a problem loading the verses. Please try again later.",
+      variant: "destructive"
+    });
+    return [];
+  }
 }

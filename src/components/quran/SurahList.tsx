@@ -98,52 +98,46 @@ const SurahList = ({
       </div>
       
       {/* Surah Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {filteredSurahs.length > 0 ? (
-          filteredSurahs.map(surah => (
-            <div 
-              key={surah.id}
-              className={`p-4 rounded-lg cursor-pointer transition-colors ${
-                currentSurah.id === surah.id 
-                  ? 'bg-islamic-green/10 border border-islamic-green/20' 
-                  : 'hover:bg-islamic-cream border border-transparent'
-              }`}
-              onClick={() => onSurahSelect(surah)}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-full bg-islamic-blue/10 flex items-center justify-center text-islamic-blue font-medium">
-                    {surah.id}
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-islamic-navy">{surah.englishName}</h4>
-                    <p className="text-xs text-islamic-charcoal/70">{surah.englishNameTranslation}</p>
-                  </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {filteredSurahs.map((surah) => (
+          <div
+            key={surah.id}
+            onClick={() => onSurahSelect(surah)}
+            className={`cursor-pointer rounded-lg border p-4 transition-colors ${
+              currentSurah.id === surah.id
+                ? 'bg-islamic-green/5 border-islamic-green'
+                : 'hover:bg-islamic-green/5 border-border'
+            }`}
+          >
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-4">
+                <div className="h-8 w-8 rounded-full bg-islamic-blue/10 flex items-center justify-center text-islamic-blue font-medium">
+                  {surah.id}
                 </div>
-                <div className="flex flex-col items-end">
-                  <p className="font-arabic text-lg">{surah.name}</p>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onToggleFavorite(surah.id);
-                    }}
-                    className={`p-1 h-6 ${
-                      favorites.includes(surah.id) ? 'text-red-500' : 'text-islamic-charcoal/50 hover:text-islamic-charcoal'
-                    }`}
-                  >
-                    <Heart size={16} fill={favorites.includes(surah.id) ? 'currentColor' : 'none'} />
-                  </Button>
+                <div>
+                  <h4 className="font-medium text-islamic-navy">{surah.englishName}</h4>
+                  <p className="text-xs text-islamic-charcoal/70">{surah.englishNameTranslation}</p>
                 </div>
               </div>
+              <div className="flex flex-col items-end">
+                <p className="font-arabic text-2xl mb-1">{surah.name}</p>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onToggleFavorite(surah.id);
+                  }}
+                  className={`p-1 h-6 ${
+                    favorites.includes(surah.id) ? 'text-red-500' : 'text-islamic-charcoal/50 hover:text-islamic-charcoal'
+                  }`}
+                >
+                  <Heart size={16} fill={favorites.includes(surah.id) ? 'currentColor' : 'none'} />
+                </Button>
+              </div>
             </div>
-          ))
-        ) : (
-          <div className="col-span-full text-center py-8 text-islamic-charcoal/70">
-            No surahs found matching your search.
           </div>
-        )}
+        ))}
       </div>
     </div>
   );
