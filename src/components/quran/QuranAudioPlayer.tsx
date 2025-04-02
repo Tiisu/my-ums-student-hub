@@ -76,7 +76,7 @@ const QuranAudioPlayer = forwardRef<HTMLAudioElement, QuranAudioPlayerProps>(({
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-md border-t shadow-lg z-50 ">
+    <div className="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-t dark:border-gray-800 shadow-lg z-50">
       <audio
         ref={audioRef}
         onTimeUpdate={handleTimeUpdate}
@@ -87,10 +87,10 @@ const QuranAudioPlayer = forwardRef<HTMLAudioElement, QuranAudioPlayerProps>(({
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Surah Info */}
           <div className="flex-shrink-0 text-center md:text-left">
-            <h3 className="text-lg font-semibold text-islamic-navy">
+            <h3 className="text-lg font-semibold text-islamic-navy dark:text-gray-100">
               {currentSurah.name} - {currentSurah.englishName}
             </h3>
-            <p className="text-sm text-islamic-charcoal/70">
+            <p className="text-sm text-islamic-charcoal/70 dark:text-gray-400">
               {currentSurah.versesCount} verses • {currentSurah.revelationType}
             </p>
           </div>
@@ -101,7 +101,7 @@ const QuranAudioPlayer = forwardRef<HTMLAudioElement, QuranAudioPlayerProps>(({
               variant="outline"
               size="icon"
               onClick={onPrevSurah}
-              className="rounded-full"
+              className="rounded-full dark:border-gray-700 dark:hover:bg-gray-800"
             >
               <SkipBack size={18} />
             </Button>
@@ -109,7 +109,7 @@ const QuranAudioPlayer = forwardRef<HTMLAudioElement, QuranAudioPlayerProps>(({
               variant="default"
               size="icon"
               onClick={onPlayPause}
-              className="bg-islamic-green hover:bg-islamic-darkGreen rounded-full h-12 w-12"
+              className="bg-islamic-green hover:bg-islamic-darkGreen dark:bg-islamic-green/90 dark:hover:bg-islamic-darkGreen/90 rounded-full h-12 w-12"
             >
               {isPlaying ? <Pause size={24} /> : <Play size={24} />}
             </Button>
@@ -117,7 +117,7 @@ const QuranAudioPlayer = forwardRef<HTMLAudioElement, QuranAudioPlayerProps>(({
               variant="outline"
               size="icon"
               onClick={onNextSurah}
-              className="rounded-full"
+              className="rounded-full dark:border-gray-700 dark:hover:bg-gray-800"
             >
               <SkipForward size={18} />
             </Button>
@@ -125,7 +125,7 @@ const QuranAudioPlayer = forwardRef<HTMLAudioElement, QuranAudioPlayerProps>(({
 
           {/* Progress and Volume */}
           <div className="flex-grow max-w-md flex items-center gap-4">
-            <span className="text-xs">{formatTime(currentTime)}</span>
+            <span className="text-xs dark:text-gray-300">{formatTime(currentTime)}</span>
             <Slider
               value={[currentTime]}
               min={0}
@@ -134,14 +134,14 @@ const QuranAudioPlayer = forwardRef<HTMLAudioElement, QuranAudioPlayerProps>(({
               onValueChange={handleSeek}
               className="flex-grow"
             />
-            <span className="text-xs">{formatTime(duration)}</span>
+            <span className="text-xs dark:text-gray-300">{formatTime(duration)}</span>
             
             <div className="flex items-center gap-2 ml-4">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={onMuteToggle}
-                className="rounded-full"
+                className="rounded-full dark:hover:bg-gray-800"
               >
                 {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
               </Button>

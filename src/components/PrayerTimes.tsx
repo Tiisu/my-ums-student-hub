@@ -78,8 +78,8 @@ const PrayerTimes = ({ standalone = false }: PrayerTimesProps) => {
                 <p className="text-xl text-islamic-navy">{formatTimeToAmPm(nextPrayer.time)}</p>
               </div>
               <div className="flex items-center gap-3 text-islamic-navy/80">
-                <Clock className="h-5 w-5" />
-                <span className="text-lg">Coming up in <span className="font-semibold text-islamic-navy">{getTimeDifference(nextPrayer.time)}</span></span>
+                <Clock className="h-5 w-5 dark:text-islamic-green" />
+                <span className="text-lg dark:text-islamic-green">Coming up in <span className="font-semibold text-islamic-navy dark:text-islamic-green">{getTimeDifference(nextPrayer.time)}</span></span>
               </div>
             </div>
           </div>

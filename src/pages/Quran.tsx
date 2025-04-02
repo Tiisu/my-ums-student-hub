@@ -9,8 +9,10 @@ import SurahList from '@/components/quran/SurahList';
 import QuranTranslation from '@/components/quran/QuranTranslation';
 import { useToast } from '@/components/ui/use-toast';
 import { useAudioShortcuts } from '@/hooks/use-audio-shortcuts';
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Label } from "@/components/ui/label"
 
-const Quran = () => {
+function Quran() {
   const [currentSurah, setCurrentSurah] = useState(QURAN_CHAPTERS[0]);
   const [currentVerses, setCurrentVerses] = useState<Verse[]>([]);
   const [currentReciter, setCurrentReciter] = useState(RECITERS[0]);
@@ -157,28 +159,35 @@ const Quran = () => {
     <div className="py-10 px-6">
       <div className="container mx-auto max-w-6xl">
         <h1 className="text-3xl text-center md:text-4xl font-bold font-serif text-islamic-navy mb-6 mt-10">Quran</h1>
-        
+
         {/* Move AudioPlayer outside of Tabs */}
         <div className="glass-card p-6 md:p-8 mb-8">
           {/* Reciter selection */}
           <div className="mb-10">
-            <label htmlFor="reciter-select" className="block text-islamic-navy font-medium mb-2">
+            <Label htmlFor="reciter-select" className="block text-islamic-navy dark:text-gray-100 font-medium mb-2">
               Select Reciter
-            </label>
-            <select
-              id="reciter-select"
-              className="w-full md:w-1/2 rounded-md border border-input bg-background px-3 py-2 mb-4"
-              value={currentReciter.id}
-              onChange={(e) => handleReciterChange(Number(e.target.value))}
+            </Label>
+            <Select
+              value={currentReciter.id.toString()}
+              onValueChange={(value) => handleReciterChange(Number(value))}
             >
-              {RECITERS.map(reciter => (
-                <option key={reciter.id} value={reciter.id}>
-                  {reciter.name}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger id="reciter-select" className="w-full">
+                <SelectValue placeholder="Select a reciter" />
+              </SelectTrigger>
+              <SelectContent position="popper" className="w-full min-w-[var(--radix-select-trigger-width)]">
+                {RECITERS.map(reciter => (
+                  <SelectItem 
+                    key={reciter.id} 
+                    value={reciter.id.toString()}
+                    className="cursor-pointer"
+                  >
+                    {reciter.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
-          
+
           {/* Audio Player */}
           <QuranAudioPlayer
             currentSurah={currentSurah}
@@ -195,9 +204,8 @@ const Quran = () => {
               if (audioRef.current) {
                 audioRef.current.volume = newVolume;
               }
-            }}
-            onMuteToggle={handleMuteToggle}
-          />
+            } }
+            onMuteToggle={handleMuteToggle} />
         </div>
 
         <Tabs defaultValue="recitations" className="w-full">
@@ -205,7 +213,7 @@ const Quran = () => {
             <TabsTrigger value="recitations">Recitations</TabsTrigger>
             <TabsTrigger value="translation">Quran with Translation</TabsTrigger>
           </TabsList>
-          
+
           {/* Recitations Tab */}
           <TabsContent value="recitations" className="animate-fade-in">
             <div className="glass-card p-6 md:p-8 mb-8">
@@ -215,11 +223,10 @@ const Quran = () => {
                 currentSurah={currentSurah}
                 favorites={favorites}
                 onSurahSelect={handleSurahSelect}
-                onToggleFavorite={handleToggleFavorite}
-              />
+                onToggleFavorite={handleToggleFavorite} />
             </div>
           </TabsContent>
-          
+
           {/* Translation Tab */}
           <TabsContent value="translation" className="animate-fade-in">
             <QuranTranslation
@@ -228,13 +235,12 @@ const Quran = () => {
               onSurahChange={(surahId) => {
                 const surah = QURAN_CHAPTERS.find(s => s.id === surahId) || QURAN_CHAPTERS[0];
                 setCurrentSurah(surah);
-              }}
-            />
+              } } />
           </TabsContent>
         </Tabs>
       </div>
     </div>
   );
-};
+}
 
 export default Quran;

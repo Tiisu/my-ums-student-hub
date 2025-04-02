@@ -1,9 +1,10 @@
 
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, User, LogIn } from 'lucide-react';
+import { Menu, X, User } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -37,13 +38,13 @@ const Navbar = () => {
     { name: 'Quran', path: '/quran' },
     { name: 'Articles', path: '/articles' },
     { name: 'News', path: '/news' },
-   
+
   ];
 
   return (
-    <header 
+    <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'py-2 bg-white/90 backdrop-blur-lg shadow-sm' : 'py-4 bg-transparent'
+        isScrolled ? 'py-2 bg-white/90 dark:bg-black/80 backdrop-blur-lg shadow-sm' : 'py-4 bg-transparent'
       }`}
     >
       <div className="container mx-auto px-6">
@@ -52,7 +53,7 @@ const Navbar = () => {
           <Link to="/" className="flex items-center">
             <span className="text-xl font-bold text-islamic-navy">GSA <span className="text-islamic-green">UDS</span></span>
           </Link>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
@@ -66,9 +67,10 @@ const Navbar = () => {
               </Link>
             ))}
           </div>
-          
-          {/* Auth buttons */}
+
+          {/* Auth buttons and theme toggle */}
           <div className="hidden md:flex items-center space-x-4">
+            <ThemeToggle />
             {user ? (
               <Link to="/profile">
                 <Button variant="outline" className="border-islamic-blue text-islamic-blue">
@@ -85,7 +87,7 @@ const Navbar = () => {
               </Link>
             )}
           </div>
-          
+
           {/* Mobile menu button */}
           <button
             className="md:hidden text-islamic-navy"
@@ -95,10 +97,10 @@ const Navbar = () => {
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </nav>
-        
+
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-4 px-6 animate-fade-in">
+          <div className="md:hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-lg py-4 px-6 animate-fade-in">
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (
                 <Link
@@ -112,7 +114,13 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
-              
+
+              {/* Theme toggle for mobile */}
+              <div className="py-2 flex items-center">
+                <span className="text-islamic-navy mr-2">Theme:</span>
+                <ThemeToggle />
+              </div>
+
               {user ? (
                 <Link
                   to="/profile"

@@ -23,7 +23,7 @@ const Donate = () => {
 
   const handleDonate = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!amount || parseFloat(amount) <= 0) {
       toast({
         title: "Invalid amount",
@@ -32,17 +32,17 @@ const Donate = () => {
       });
       return;
     }
-    
+
     try {
       setLoading(true);
-      
+
       // In a real application, you would integrate with a payment processor here
       // For demo purposes, we'll just log the donation to the database
       const { error } = await supabase
         .from('donations')
         .insert([
-          { 
-            user_id: user?.id || null, 
+          {
+            user_id: user?.id || null,
             amount: parseFloat(amount),
             payment_method: paymentMethod,
             donor_name: name || user?.user_metadata?.username || 'Anonymous',
@@ -50,14 +50,14 @@ const Donate = () => {
             status: 'pending'
           }
         ]);
-      
+
       if (error) throw error;
-      
+
       toast({
         title: "Thank you for your donation!",
         description: `Your donation of GH₵${amount} is being processed.`,
       });
-      
+
       // Reset form
       setAmount('');
       setPhoneNumber('');
@@ -77,15 +77,15 @@ const Donate = () => {
   return (
     <div className="py-10 px-6 container mx-auto">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-4 text-islamic-navy">Support GSA UDS</h1>
-        <p className="text-islamic-charcoal/80 mb-8">
+        <h1 className="text-3xl font-bold mb-4 text-islamic-navy dark:text-white">Support GSA UDS</h1>
+        <p className="text-islamic-charcoal/80 dark:text-gray-300 mb-8">
           Your donations help us organize events, provide resources, and support Muslim students at UDS Nyankpala Campus.
         </p>
-        
-        <Alert className="mb-8 bg-islamic-cream border-islamic-green/30">
+
+        <Alert className="mb-8 bg-islamic-cream border-islamic-green/30 dark:bg-gray-800/50 dark:border-islamic-green/20">
           <InfoIcon className="h-4 w-4 text-islamic-green" />
-          <AlertTitle className="text-islamic-navy">About Your Donation</AlertTitle>
-          <AlertDescription className="text-islamic-charcoal/80">
+          <AlertTitle className="text-islamic-navy dark:text-white">About Your Donation</AlertTitle>
+          <AlertDescription className="text-islamic-charcoal/80 dark:text-gray-300">
             All donations go directly to GMSA UDS activities including:
             <ul className="list-disc ml-5 mt-2 space-y-1">
               <li>Islamic awareness programs</li>
@@ -96,7 +96,7 @@ const Donate = () => {
             </ul>
           </AlertDescription>
         </Alert>
-        
+
         <Card>
           <CardHeader>
             <CardTitle>Make a Donation</CardTitle>
@@ -117,7 +117,7 @@ const Donate = () => {
                   step="0.01"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="name">Your Name (Optional)</Label>
                 <Input
@@ -128,11 +128,11 @@ const Donate = () => {
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label>Payment Method</Label>
-                <RadioGroup 
-                  value={paymentMethod} 
+                <RadioGroup
+                  value={paymentMethod}
                   onValueChange={setPaymentMethod}
                   className="flex flex-col space-y-2"
                 >
@@ -152,7 +152,7 @@ const Donate = () => {
                   </div>
                 </RadioGroup>
               </div>
-              
+
               {paymentMethod === 'momo' && (
                 <div className="space-y-2">
                   <Label htmlFor="phone">Mobile Money Number</Label>
@@ -165,10 +165,10 @@ const Donate = () => {
                     onChange={(e) => setPhoneNumber(e.target.value)}
                     required
                   />
-                  <p className="text-xs text-islamic-charcoal/60 mt-1">Format: 10 digits starting with 0</p>
+                  <p className="text-xs text-islamic-charcoal/60 dark:text-gray-400 mt-1">Format: 10 digits starting with 0</p>
                 </div>
               )}
-              
+
               {paymentMethod === 'card' && (
                 <Alert variant="destructive">
                   <AlertCircle className="h-4 w-4" />
@@ -178,11 +178,11 @@ const Donate = () => {
                   </AlertDescription>
                 </Alert>
               )}
-              
+
               <Separator />
-              
-              <Button 
-                type="submit" 
+
+              <Button
+                type="submit"
                 className="w-full bg-islamic-green hover:bg-islamic-darkGreen"
                 disabled={loading}
               >
@@ -191,7 +191,7 @@ const Donate = () => {
             </form>
           </CardContent>
           <CardFooter className="flex flex-col items-start">
-            <p className="text-xs text-islamic-charcoal/60">
+            <p className="text-xs text-islamic-charcoal/60 dark:text-gray-400">
               For bulk donations or other payment methods, please contact the GSA treasurer directly at treasurer@gmsauds.org
             </p>
           </CardFooter>
