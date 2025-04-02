@@ -77,7 +77,7 @@ const Donate = () => {
   return (
     <div className="py-10 px-6 container mx-auto">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-4 text-islamic-navy">Support GMSA UDS</h1>
+        <h1 className="text-3xl font-bold mb-4 text-islamic-navy">Support GSA UDS</h1>
         <p className="text-islamic-charcoal/80 mb-8">
           Your donations help us organize events, provide resources, and support Muslim students at UDS Nyankpala Campus.
         </p>
@@ -192,7 +192,7 @@ const Donate = () => {
           </CardContent>
           <CardFooter className="flex flex-col items-start">
             <p className="text-xs text-islamic-charcoal/60">
-              For bulk donations or other payment methods, please contact the GMSA treasurer directly at treasurer@gmsauds.org
+              For bulk donations or other payment methods, please contact the GSA treasurer directly at treasurer@gmsauds.org
             </p>
           </CardFooter>
         </Card>
