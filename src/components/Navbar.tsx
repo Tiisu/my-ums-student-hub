@@ -117,7 +117,7 @@ const Navbar = () => {
 
               {/* Theme toggle for mobile */}
               <div className="py-2 flex items-center">
-                <span className="text-islamic-navy mr-2">Theme:</span>
+                <span className="text-islamic-navy mr-2 dark:text-islamic-navy">Theme:</span>
                 <ThemeToggle />
               </div>
 
