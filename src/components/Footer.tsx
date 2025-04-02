@@ -8,9 +8,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* About Section */}
           <div>
-            <h3 className="text-xl font-serif font-bold mb-6">GMSA UDS</h3>
+            <h3 className="text-xl font-serif font-bold mb-6">GSA UDS</h3>
             <p className="text-gray-300 mb-6 leading-relaxed">
-              The Ghana Muslim Students' Association at University for Development Studies, Nyankpala Campus, 
+              The Ghana  Students' Association at University for Development Studies, Nyankpala Campus, 
               dedicated to fostering spiritual growth and community support.
             </p>
             <div className="flex space-x-4">
@@ -50,7 +50,7 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <MapPin size={20} className="text-islamic-green mt-1 flex-shrink-0" />
                 <span className="text-gray-300">
-                  GMSA Office, UDS Nyankpala Campus, Tamale, Northern Region, Ghana
+                  GSA Office, UDS Nyankpala Campus, Tamale, Northern Region, Ghana
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -61,8 +61,8 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={20} className="text-islamic-green flex-shrink-0" />
-                <a href="mailto:info@gmsauds.org" className="text-gray-300 hover:text-islamic-green transition-colors">
-                  info@gmsauds.org
+                <a href="mailto:info@gsauds.org" className="text-gray-300 hover:text-islamic-green transition-colors">
+                  info@msauds.org
                 </a>
               </li>
             </ul>
@@ -92,7 +92,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-white/10 mt-12 pt-8 text-center text-gray-400">
-          <p>© {new Date().getFullYear()} GMSA UDS Nyankpala Campus. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} GSA UDS Nyankpala Campus. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -50,7 +50,7 @@ const Navbar = () => {
         <nav className="flex justify-between items-center">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <span className="text-xl font-bold text-islamic-navy">GMSA <span className="text-islamic-green">UDS</span></span>
+            <span className="text-xl font-bold text-islamic-navy">GSA <span className="text-islamic-green">UDS</span></span>
           </Link>
           
           {/* Desktop Navigation */}

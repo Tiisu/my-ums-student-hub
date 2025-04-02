@@ -28,7 +28,7 @@ const Hero = () => {
           </span>
           
           <h1 className="text-4xl md:text-6xl font-bold animate-fade-up text-islamic-navy mb-6 leading-tight">
-            Ghana Muslim Students' Association
+            Ghana  Students' Association
           </h1>
           
           <p className="text-lg text-islamic-charcoal/80 animate-fade-up animation-delay-200 max-w-2xl mb-10">

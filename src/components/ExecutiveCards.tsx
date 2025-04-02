@@ -8,7 +8,7 @@ const executives = [
     name: "Ahmad Mahmoud",
     position: "President",
     imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=774&auto=format&fit=crop",
-    email: "ahmad@gmsauds.org",
+    email: "ahmad@gsauds.org",
     phone: "+233 55 123 4567"
   },
   {
@@ -16,7 +16,7 @@ const executives = [
     name: "Mahama Ibrahim",
     position: "Vice President",
     imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=774&auto=format&fit=crop",
-    email: "fatima@gmsauds.org",
+    email: "fatima@gsauds.org",
     phone: "+233 55 234 5678"
   },
   {
@@ -24,7 +24,7 @@ const executives = [
     name: "Omar Hassan",
     position: "General Secretary",
     imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=774&auto=format&fit=crop",
-    email: "omar@gmsauds.org",
+    email: "omar@gsauds.org",
     phone: "+233 55 345 6789"
   },
   {
@@ -32,7 +32,7 @@ const executives = [
     name: "Kofi Mohammed",
     position: "Treasurer",
     imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=774&auto=format&fit=crop",
-    email: "aisha@gmsauds.org",
+    email: "aisha@gsauds.org",
     phone: "+233 55 456 7890"
   }
 ];
